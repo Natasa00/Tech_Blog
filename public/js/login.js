@@ -2,7 +2,7 @@ const loginFormHandler = async (event) => {
   event.preventDefault();
 
   // Collect values from the login form
-  const email = document.querySelector('#email-login').value.trim();
+  const email = document.querySelector('#username-login').value.trim();
   const password = document.querySelector('#password-login').value.trim();
 
   if (email && password) {
@@ -15,7 +15,7 @@ const loginFormHandler = async (event) => {
 
     if (response.ok) {
       // If successful, redirect the browser to the your plants page
-      document.location.replace('/your-swaps');
+      document.location.replace('/');
     } else {
       alert(response.statusText);
     }

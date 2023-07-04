@@ -1,26 +1,26 @@
 const router = require('express').Router();
-const { User, Swap } = require('../models');
+const { User, Post } = require('../models');
 const withAuth = require('../utils/auth');
 
 //gets all existing listings for homepage
 router.get('/', async (req, res) => {
   try {
     // Get all projects and JOIN with user data
-    const swapData = await Swap.findAll({
+    const postData = await Post.findAll({
       include: [
         {
           model: User,
-          attributes: ['name'],
+          attributes: ['username'],
         },
       ],
     });
 
     // Serialize data so the template can read it
-    const swaps = swapData.map((swap) => swap.get({ plain: true }));
+    const posts = postData.map((post) => post.get({ plain: true }));
 
     // Pass serialized data and session flag into template
     res.render('homepage', {
-      swaps,
+      posts,
       logged_in: req.session.logged_in,
     });
   } catch (err) {
@@ -29,10 +29,10 @@ router.get('/', async (req, res) => {
 });
 
 //gets all existing listings created by user
-router.get('/your-swaps', withAuth, async (req, res) => {
+router.get('/your-posts', withAuth, async (req, res) => {
   try {
-    // Get all swaps and JOIN with user data
-    const swapData = await Swap.findAll({
+    // Get all posts and JOIN with user data
+    const postData = await Post.findAll({
       where: {
         user_id: req.session.user_id,
       },
@@ -45,14 +45,14 @@ router.get('/your-swaps', withAuth, async (req, res) => {
     });
 
     // Serialize data so the template can read it
-    const swaps = swapData.map((swap) => swap.get({ plain: true }));
+    const posts = postData.map((post) => post.get({ plain: true }));
 
     const userData = await User.findByPk(req.session.user_id);
     const user = userData.get({ plain: true });
 
     // Pass serialized data and session flag into template
-    res.render('your-swaps', {
-      swaps,
+    res.render('your-posts', {
+      posts,
       logged_in: req.session.logged_in,
       user_name: user.name,
     });
@@ -62,9 +62,9 @@ router.get('/your-swaps', withAuth, async (req, res) => {
 });
 
 //gets each listing by id
-router.get('/swap/:id', async (req, res) => {
+router.get('/post/:id', async (req, res) => {
   try {
-    const swapData = await Swap.findByPk(req.params.id, {
+    const postData = await Post.findByPk(req.params.id, {
       include: [
         {
           model: User,
@@ -73,10 +73,10 @@ router.get('/swap/:id', async (req, res) => {
       ],
     });
 
-    const swap = swapData.get({ plain: true });
+    const post = postData.get({ plain: true });
 
-    res.render('swap', {
-      swap,
+    res.render('post', {
+      post,
       logged_in: req.session.logged_in,
     });
   } catch (err) {
@@ -84,16 +84,16 @@ router.get('/swap/:id', async (req, res) => {
   }
 });
 
-router.get('/create-swap', withAuth, (req, res) => {
-  res.render('create-swap', {
+router.get('/create-post', withAuth, (req, res) => {
+  res.render('create-post', {
     logged_in: req.session.logged_in,
   });
 });
 
-// Edit a swap post
-router.get('/edit-swap/:id', withAuth, async (req, res) => {
+// Edit a post post
+router.get('/edit-post/:id', withAuth, async (req, res) => {
   try {
-    const swapData = await Swap.findByPk(req.params.id, {
+    const postData = await Post.findByPk(req.params.id, {
       where: { user_id: req.session.user_id },
       include: [
         {
@@ -103,10 +103,10 @@ router.get('/edit-swap/:id', withAuth, async (req, res) => {
       ],
     });
 
-    const swap = swapData.get({ plain: true });
+    const post = postData.get({ plain: true });
 
-    res.render('edit-swap', {
-      swap,
+    res.render('edit-post', {
+      post,
       logged_in: req.session.logged_in,
     });
   } catch (err) {

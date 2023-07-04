@@ -4,32 +4,15 @@
     <a href="/create-swap" class="block rounded-md bg-emerald-700 p-4 py-2 text-neutral-50">Create swap</a>
   </div>
   
-  {{#each swaps as |swap| }}
+  {{#each posts as |post| }}
   <div class="row mb-4 border-b-2 border-neutral-400 pb-6">
     <div class="col-md-5">
       <h2>
-        <a class="text-xl font-semibold block mb-2" href="/swap/{{swap.id}}">{{swap.title}}</a>
+        <a class="text-xl font-semibold block mb-2" href="/post/{{post.id}}">{{post.title}}</a>
       </h2>
       <p class="mb-3">
-        {{swap.description}}  
+        {{post.content}}  
       </p>
-    </div>
-    <div class="col-md-7">
-      {{#if_equals swap.type "Swap"}}
-      <span class="text-xs block rounded-full bg-emerald-100 py-1 px-3 w-min ">
-        {{swap.type}}
-      </span>
-      {{/if_equals}}
-      {{#if_equals swap.type "Wanted"}}
-      <span class="text-xs block rounded-full bg-blue-100 py-1 px-3 w-min ">
-        {{swap.type}}
-      </span>
-      {{/if_equals}}
-      {{#if_equals swap.type "Free"}}
-      <span class="text-xs block rounded-full bg-orange-100 py-1 px-3 w-min ">
-        {{swap.type}}
-      </span>
-      {{/if_equals}}
     </div>
   </div>
   {{/each}}
