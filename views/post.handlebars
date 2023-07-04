@@ -1,0 +1,29 @@
+<div class="p-12">
+  <div class="border-2 border-slate-800 mb-4">
+    <div class="bg-slate-800 p-2 px-4 flex items-center justify-between text-neutral-200">
+      <h2 class="block text-xl font-semibold">
+        {{post.title}}
+      </h2>
+      <div>
+        Posted by {{post.user.username}} on {{format_date post.date_created}}
+      </div>
+    </div>
+    
+    <p class="p-2 px-4">
+      {{post.content}}  
+    </p>
+  </div>
+  {{#each post.comments as |comment|}}
+  <div class="border-2 border-slate-800 mb-4">
+    <div class="bg-slate-800 p-2 px-4 text-neutral-200 h-10">
+    </div>
+    
+    <p class="px-4 mt-4 mb-4">
+      {{comment.commentText}}  
+    </p>
+    <p class="px-4 mb-4">
+      - {{comment.user.username}}
+    </p>
+  </div>
+  {{/each}}
+</div>
