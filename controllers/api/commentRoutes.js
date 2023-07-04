@@ -2,7 +2,6 @@
 const router = require('express').Router();
 const { Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
-// const helpers = require('../../utils/helpers');
 
 // Get all swaps
 // router.get('/', (req, res) => {
@@ -74,20 +73,5 @@ router.delete('/:id', withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
-// Update a comment
-// router.put('/:id', async (req, res) => {
-//   try {
-//     await Comment.update(req.body, {
-//       where: {
-//         id: req.params.id,
-//       },
-//     });
-//     res.json({ success: true });
-//   } catch (err) {
-//     console.log(err);
-//     res.sendStatus(500).send(err);
-//   }
-// });
 
 module.exports = router;

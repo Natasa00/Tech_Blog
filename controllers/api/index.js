@@ -1,13 +1,12 @@
 //creating the route for the user
 const router = require('express').Router();
 
-
 const userRoutes = require('./userRoutes');
-const swapRoutes = require('./swapRoutes');
-
+const postRoutes = require('./postRoutes');
+const commentRoutes = require('./commentRoutes');
 
 router.use('/users', userRoutes);
-router.use('/swaps', swapRoutes);
-
+router.use('/posts', postRoutes);
+router.use('/comments', commentRoutes);
 
 module.exports = router;
