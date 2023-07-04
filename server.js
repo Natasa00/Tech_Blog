@@ -1,12 +1,6 @@
 // Install dependencies and includes the set up sessions/cookie
 const path = require('path');
 const express = require('express');
-//import passport-facebook, facebook strategy and user models
-const passport = require('passport');
-const FacebookStrategy = require('passport-facebook').Strategy;
-const User = require('./models/User');
-
-// Import express-session
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -17,46 +11,6 @@ const helpers = require('./utils/helpers');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-
-
-const defaultPassword = 'default12345';
-
-passport.use(
- 
-  new FacebookStrategy(
-    {
-      clientID:'2318951998306830',
-      clientSecret: '6daeaf186d30eb59f63db37eaa41f70b',
-      callbackURL: 'http://localhost:3001/auth/facebook/callback',
-      
-      profileFields: ['id','displayName'],
-    },
-    async (accessToken, refreshToken, profile, done) => {
-      try {
-        const [user, created] = await User.findOrCreate({
-          where: { FacebookId: profile.id },
-          defaults: {
-            name: profile.displayName,
-            username: profile.id,
-            password: defaultPassword,
-          },
-        });
-
-        return done(null, user);
-      } catch (error) {
-        return done(error);
-      }
-    }
-  )
-);
-
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
-
-passport.deserializeUser(function(user, done) {
-  done(null, user);
-});
 
 // Set up sessions
 const sess = {
