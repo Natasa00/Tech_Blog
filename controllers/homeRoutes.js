@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const { User, Post } = require('../models');
+const { User, Post, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
-//gets all existing listings for homepage
+// gets all existing listings for homepage
 router.get('/', async (req, res) => {
   try {
     // Get all projects and JOIN with user data
@@ -29,7 +29,7 @@ router.get('/', async (req, res) => {
 });
 
 //gets all existing listings created by user
-router.get('/your-posts', withAuth, async (req, res) => {
+router.get('/dashboard', withAuth, async (req, res) => {
   try {
     // Get all posts and JOIN with user data
     const postData = await Post.findAll({
@@ -39,7 +39,10 @@ router.get('/your-posts', withAuth, async (req, res) => {
       include: [
         {
           model: User,
-          attributes: ['name'],
+          attributes: ['username'],
+        },
+        {
+          model: Comment,
         },
       ],
     });
@@ -47,14 +50,13 @@ router.get('/your-posts', withAuth, async (req, res) => {
     // Serialize data so the template can read it
     const posts = postData.map((post) => post.get({ plain: true }));
 
-    const userData = await User.findByPk(req.session.user_id);
-    const user = userData.get({ plain: true });
+    console.log(posts);
 
     // Pass serialized data and session flag into template
-    res.render('your-posts', {
+    res.render('dashboard', {
       posts,
       logged_in: req.session.logged_in,
-      user_name: user.name,
+      page_title: 'Your Dashboard',
     });
   } catch (err) {
     res.status(500).json(err);
