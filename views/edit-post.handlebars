@@ -1,0 +1,24 @@
+<div class="p-12">
+  <div class="border-2 border-slate-800 mb-4">
+    <div class="bg-slate-800 p-2 px-4 text-neutral-200">
+      <h2 class="block text-xl font-semibold">
+        Edit Post
+      </h2>
+    </div>
+    
+    <form id="edit-post-form" class="block p-4">
+      <label for="post-title">
+        <span class="block text-lg font-semibold mb-2">Title</span>
+      </label>
+			<input required class="text-sm p-2 pl-3 rounded-lg w-full border border-gray-300 focus:outline-sky-600" type="text" id="post-title" name="title" value="{{post.title}}" />
+			<label for="post-content">
+        <span class="block text-lg font-semibold mb-2 mt-4">Content</span>
+      </label>
+      <textarea required class="text-sm p-2 pl-3 rounded-lg w-full border border-gray-300 focus:outline-sky-600 mb-3" id="post-content" name="content">{{post.content}}</textarea>
+      <button type="submit" class="w-full rounded-md bg-slate-800 p-4 py-2 mb-2 text-neutral-50" id="update-button">Update</button>
+      <button type="button" class="w-full rounded-md bg-slate-800 p-4 py-2 text-neutral-50" id="delete-button">Delete</button>
+    </form>
+  </div>
+</div>
+<script src="/js/edit-post.js"></script>
+<script src="/js/delete-post.js"></script>
