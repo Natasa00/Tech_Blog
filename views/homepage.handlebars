@@ -1,19 +1,18 @@
-<div class="md:p-20 p-12 pt-12">
-  <div class="flex flex-col items-start sm:flex-row sm:justify-between sm:items-center mb-12">
-    <h1 class="block text-4xl font-semibold mb-4 sm:mb-0">Find your favorite plants!</h1>
-    <a href="/create-swap" class="block rounded-md bg-emerald-700 p-4 py-2 text-neutral-50">Create swap</a>
-  </div>
-  
+<div class="p-12">
   {{#each posts as |post| }}
-  <div class="row mb-4 border-b-2 border-neutral-400 pb-6">
-    <div class="col-md-5">
-      <h2>
-        <a class="text-xl font-semibold block mb-2" href="/post/{{post.id}}">{{post.title}}</a>
+  <div class="border-2 border-slate-800 mb-4">
+    <div class="bg-slate-800 p-2 px-4 flex items-center justify-between text-neutral-200">
+      <h2 class="block">
+        <a class="text-xl font-semibold block" href="/post/{{post.id}}">{{post.title}}</a>
       </h2>
-      <p class="mb-3">
-        {{post.content}}  
-      </p>
+      <div>
+        Posted by {{post.user.username}} on {{format_date post.date_created}}
+      </div>
     </div>
+    
+    <p class="p-2 px-4">
+      {{post.content}}  
+    </p>
   </div>
   {{/each}}
 </div>
