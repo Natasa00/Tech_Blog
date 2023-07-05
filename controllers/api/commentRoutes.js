@@ -3,16 +3,6 @@ const router = require('express').Router();
 const { Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-// Get all swaps
-// router.get('/', (req, res) => {
-//   Comment.findAll({})
-//     .then(dbCommentData => res.json(dbCommentData))
-//     .catch(err => {
-//       console.log(err);
-//       res.status(500).json(err);
-//     });
-// });
-
 // Create a new comment
 router.post('/', withAuth, async (req, res) => {
   try {
