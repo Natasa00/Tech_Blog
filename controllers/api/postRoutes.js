@@ -33,7 +33,7 @@ router.put('/:id', withAuth, async (req, res) => {
     );
 
     if (results.affectedRows > 0) {
-      res.status(200).json(newPost);
+      res.status(200).json(results);
     } else {
       res.status(404).json('Not Found');
     }

@@ -30,7 +30,7 @@ router.post('/', withAuth, async (req, res) => {
 // Edit a comment
 router.put('/:id', withAuth, async (req, res) => {
   try {
-    const results = await Swap.update(
+    const results = await Comment.update(
       {
         ...req.body,
         user_id: req.session.user_id,
@@ -43,7 +43,7 @@ router.put('/:id', withAuth, async (req, res) => {
     );
 
     if (results.affectedRows > 0) {
-      res.status(200).json(newComment);
+      res.status(200).json(results);
     } else {
       res.status(404).json('Not Found');
     }

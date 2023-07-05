@@ -13,17 +13,35 @@
       {{post.content}}  
     </p>
   </div>
+  <div class="border-2 border-slate-800 mb-4">
+    <div class="bg-slate-800 p-2 px-4 text-neutral-200 h-10">
+    </div>
+    
+    {{#if logged_in}}
+    <form id="create-comment-form" class="block p-4">
+      <label for="comment-text">
+        <span class="block text-lg font-semibold mb-2">Comment</span>
+      </label>
+      <textarea required class="text-sm p-2 pl-3 rounded-lg w-full border border-gray-300 focus:outline-sky-600 mb-3" id="comment-text" name="comment-text"></textarea>
+      <button type="submit" class="w-full rounded-md bg-slate-800 p-4 py-2 text-neutral-50" id="submit-button">Submit</button>
+    </form>
+    {{/if}}
+    {{#unless logged_in}}
+    <a href="/login" class="block text-sky-700 m-4">Log in to add comments</a>
+    {{/unless}}
+  </div>
   {{#each post.comments as |comment|}}
   <div class="border-2 border-slate-800 mb-4">
     <div class="bg-slate-800 p-2 px-4 text-neutral-200 h-10">
     </div>
     
     <p class="px-4 mt-4 mb-4">
-      {{comment.commentText}}  
+      {{comment.comment_text}}  
     </p>
     <p class="px-4 mb-4">
-      - {{comment.user.username}}
+      - {{comment.user.username}}, {{format_date comment.date_created}}
     </p>
   </div>
   {{/each}}
 </div>
+<script src="/js/create-comment.js"></script>
